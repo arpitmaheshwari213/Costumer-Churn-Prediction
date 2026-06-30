@@ -9,6 +9,7 @@ __pycache__/
 .venv
 env/
 venv/
+.python-version
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -16,3 +17,6 @@ venv/
 # IPython
 profile_default/
 ipython_config.py
+
+# OS Files
+.DS_Store
