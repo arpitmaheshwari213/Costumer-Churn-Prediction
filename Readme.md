@@ -74,13 +74,11 @@ This project will help me in showcasing the ML Engineering Simulation involving 
 2. XGBoost
 3. Github
 4. Docker
-5. REST API
-6. FAST API
-7. Streamlit App
-8. MLFlow
-9. AirFlow
-9. SQLite
-10. Jupyter Notebook for experimentation
+5. FAST API
+6. Streamlit App
+7. MLFlow
+8. SQLite
+9. Jupyter Notebooks
 
 
 ### Resources

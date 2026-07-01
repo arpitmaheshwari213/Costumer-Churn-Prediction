@@ -1,0 +1,126 @@
+2026-07-01 13:11:06,814 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:11:07,282 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:11:07,283 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:13:50,923 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:13:51,483 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:13:51,483 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:14:32,885 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:14:33,409 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:14:33,409 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:14:33,410 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:16:34,220 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:16:34,693 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:16:34,695 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:16:34,696 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:16:47,107 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:16:47,674 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:16:47,674 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:16:47,675 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:16:53,781 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:16:54,261 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:16:54,261 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:16:54,264 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:17:25,515 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:17:25,999 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:17:25,999 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:17:26,000 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:19:30,838 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:19:31,402 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:19:31,402 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:19:31,403 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:19:48,581 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:19:49,086 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:19:49,086 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:19:49,087 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:20:43,763 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:20:44,257 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:20:44,258 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:20:44,259 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:21:52,768 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:21:53,342 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:21:53,342 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:21:53,343 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:22:32,079 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:22:32,642 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:22:32,643 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:22:32,644 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:24:38,168 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:24:49,678 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:24:50,605 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:24:50,605 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:24:50,607 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:34:16,338 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:34:17,195 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:34:17,196 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:34:17,202 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:35:51,203 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:35:51,715 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:35:51,715 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:35:51,716 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:36:21,059 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:36:21,610 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:36:21,610 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:36:21,611 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:39:11,813 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:39:12,504 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:39:12,504 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:39:12,506 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:39:33,990 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:39:35,275 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:39:35,276 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:39:35,279 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:41:48,420 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:41:49,268 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:41:49,268 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:41:49,271 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:46:18,301 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:46:18,825 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:46:18,826 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:46:18,827 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:48:30,868 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:48:31,436 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:48:31,436 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:48:31,437 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:49:39,412 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:49:39,937 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:49:39,937 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:49:39,938 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:50:46,779 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:50:47,322 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:50:47,322 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:50:47,323 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:53:43,784 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:53:43,958 - __main__.DataLoader - INFO - [LOG] Successfully loaded 1410 rows from ../data/test_dataset.xlsx
+2026-07-01 13:53:43,958 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:53:43,959 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (1410, 20) & Shape of target Variable 1410
+2026-07-01 13:56:53,846 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:56:54,315 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:56:54,315 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:56:54,321 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:57:03,511 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:57:03,679 - __main__.DataLoader - INFO - [LOG] Successfully loaded 1410 rows from ../data/test_dataset.xlsx
+2026-07-01 13:57:03,679 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:57:03,680 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (1410, 20) & Shape of target Variable 1410
+2026-07-01 13:58:32,653 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:58:33,218 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 13:58:33,218 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:58:33,219 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 20) & Shape of target Variable 4928
+2026-07-01 13:58:42,311 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 13:58:42,501 - __main__.DataLoader - INFO - [LOG] Successfully loaded 1410 rows from ../data/test_dataset.xlsx
+2026-07-01 13:58:42,501 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 13:58:42,502 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (1410, 20) & Shape of target Variable 1410
+2026-07-01 14:02:35,336 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 14:02:35,804 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 14:02:35,804 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 14:02:56,652 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 14:02:57,137 - __main__.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-01 14:02:57,137 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 14:02:57,140 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928
+2026-07-01 14:03:03,079 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 14:03:03,236 - __main__.DataLoader - INFO - [LOG] Successfully loaded 1410 rows from ../data/test_dataset.xlsx
+2026-07-01 14:03:03,236 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 14:03:03,237 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (1410, 19) & Shape of target Variable 1410
+2026-07-01 14:03:36,470 - __main__.DataLoader - INFO - Loading Dataset
+2026-07-01 14:03:36,695 - __main__.DataLoader - INFO - [LOG] Successfully loaded 1410 rows from ../data/test_dataset.xlsx
+2026-07-01 14:03:36,695 - __main__.DataLoader - INFO - Cleaning Dataset
+2026-07-01 14:03:36,696 - __main__.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (1410, 19) & Shape of target Variable 1410
