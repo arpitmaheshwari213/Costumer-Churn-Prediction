@@ -40,6 +40,7 @@ This project will help me in showcasing the ML Engineering Simulation involving 
 
 1. Model Performance Metrics
 2. Business Metrics
+3. Feature Importance
 
 #### Model Inference Generation
 * Again this is a pipeline, which will involve data processing, feature engineering, model prediction, store the predictions for monitoring and return the prediction.
