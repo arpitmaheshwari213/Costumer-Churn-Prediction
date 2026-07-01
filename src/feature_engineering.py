@@ -9,6 +9,8 @@ from sklearn.pipeline import Pipeline
 from pathlib import Path
 import pickle
 from dataclasses import dataclass
+import logging
+from log_generator import make_logger
 
 @dataclass
 class PreprocessorState:

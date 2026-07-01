@@ -82,9 +82,10 @@ This project will help me in showcasing the ML Engineering Simulation involving 
 
 
 ### Resources
-1. Made with ML
-2. Designing ML Systems by Chip Huyen
-3. ML Engineering for Production Course by Andrew NG
+1. Made with ML [https://madewithml.com/#course]
+2. Designing ML Systems by Chip Huyen [https://www.amazon.co.uk/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969]
+3. ML Engineering for Production Course by Andrew NG [https://youtube.com/playlist?list=PLkDaE6sCZn6GMoA0wbpJLi3t34Gd8l0aK&si=KVZghMUIZ4MY2AZd]
+4. ML Flow Documentation - [https://mlflow.org/docs/latest/ml/tracking/quickstart/]
 
 ### Next Steps
 [TODO]
