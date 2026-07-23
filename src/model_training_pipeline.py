@@ -12,7 +12,9 @@ from hyperparameter_tunning import HyperparameterTunning
 from sklearn.metrics import f1_score, average_precision_score
 from utils import create_timestamped_filename
 from log_generator import make_logger
-from model import ModelUtility
+from load_and_save_model import save_model
+from typing import Dict, Any
+import optuna
 
 METRIC_REGISTRY = {
     "macro_f1": lambda y_true, y_pred, y_prob: f1_score(y_true, y_pred, average='macro'),
@@ -46,11 +48,11 @@ class ModelTrainingPipeline:
 
         X, y = loader.clean_data(df, self.target_col)
 
-        processed_df = pd.concat([X, y], axis=1)
+        
         self.logger.info(
-            f"[SUCCESS] Data loaded and cleaned successfully : {processed_df.shape}"
+            f"[SUCCESS] Data loaded and cleaned successfully : {X.shape, y.shape}"
         )
-        return processed_df
+        return X,y
 
     def perform_feature_engineering(self, raw_data_df: pd.DataFrame):
         """Feature Engineering with fit and transform. Also, saves the state."""
@@ -80,13 +82,12 @@ class ModelTrainingPipeline:
             return
 
         # 1. Load Data
-        raw_data_df = self.load_and_clean_data(file_name)
+        X,y = self.load_and_clean_data(file_name)
         # 2. Extract Features
         X_processed, preprocessor_state_obj = self.perform_feature_engineering(
-            raw_data_df
+            X
         )
-        y = raw_data_df[self.target_col]
-
+        y = pd.DataFrame(y)
         #3. Hyperparameters Tuning ---
         best_params: dict
         best_n_estimators: int
@@ -96,7 +97,7 @@ class ModelTrainingPipeline:
 
             # Instantiate and use the Tuning Object
             tuner = HyperparameterTunning(
-                featues=X_processed,
+                features=X_processed,
                 target=y
             )
 
@@ -118,13 +119,13 @@ class ModelTrainingPipeline:
             best_params, best_n_estimators = self.load_or_default_params()
 
         # 4. Train the final model and save it
-        self.logger.info("Starting model training")
+        self.logger.info("Step 3: Starting model training")
         try:
             xgb_model = XGBClassifier(**best_params, n_estimators=best_n_estimators, use_label_encoder=False)
             xgb_model.fit(X_processed, y)
 
             # Save the model using the utility class
-            ModelUtility.save_model(xgb_model, f"../models/xgboost_model_{self.timestamp}.pkl") 
+            save_model(xgb_model, f"../models/xgboost_model_{self.timestamp}.pkl") 
             self.logger.info("ML training pipeline completed!")
 
         except Exception as e:
@@ -139,7 +140,7 @@ class ModelTrainingPipeline:
             try:
                 all_files = glob.glob(search_path)
             except Exception as e:
-                self.logger.error(f"[ERROR] Failed to search directory {PARAM_DIR}: {e}")
+                self.logger.error(f"[ERROR] Failed to search directory {"../models/"}: {e}")
 
             # Check if any files were found
             if not all_files:
@@ -173,3 +174,45 @@ class ModelTrainingPipeline:
         self.logger.warning("[FALLBACK] Using default hyperparameter values.")
         return (default_params, 300)
 
+
+
+def main():
+    """
+    Main function to run the pipeline
+    """
+    print("===== Machine Learning Pipeline =====")
+    
+    # CONFIGURATION SECTION
+    DATA_FOLDER = "../data/"
+    TRAINING_FILE = "train_dataset.xlsx"
+    TARGET_COLUMN = "Churn"
+
+    # Define required parameters for tuning/defaulting
+    parameter_search_space = {
+        "objective": optuna.distributions.CategoricalDistribution(["binary:logistic"]), 
+        "eval_metric": optuna.distributions.CategoricalDistribution(["logloss"]),
+        "scale_pos_weight":optuna.distributions.CategoricalDistribution([1.7]), # sqrt(negatives/positives)
+        "learning_rate": optuna.distributions.FloatDistribution(0.01, 0.3, log=True),
+        "max_depth": optuna.distributions.IntDistribution(4, 10),
+        "min_child_weight": optuna.distributions.IntDistribution(3, 8),
+        "subsample": optuna.distributions.FloatDistribution(0.7, 1.0),
+        "colsample_bytree": optuna.distributions.FloatDistribution(0.7, 1.0),
+        "reg_alpha": optuna.distributions.FloatDistribution(1e-8, 3.0, log=True),
+        "reg_lambda": optuna.distributions.FloatDistribution(1, 3.0, log=True),
+    }
+
+
+    orchestrator = ModelTrainingPipeline(data_folder=DATA_FOLDER, target_col=TARGET_COLUMN)
+
+    try:
+        # run_workflow handles loading data, running the tuner, and training the model.
+        orchestrator.run_workflow(
+            file_name=TRAINING_FILE, 
+            run_tuning=True,
+            parameter_search_space=parameter_search_space
+        )
+    except Exception as e:
+        print(f"[Error] ML Workflow Failed\n{e}")
+
+if __name__ == "__main__":
+    main()

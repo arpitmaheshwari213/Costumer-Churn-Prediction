@@ -7,10 +7,11 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score, average_precision_score
 import json
 import logging
+from typing import Dict, Any
 from log_generator import make_logger
 from datetime import datetime
 from utils import create_timestamped_filename
-
+from pathlib import Path 
 class HyperparameterTunning:
     def __init__(self, features:pd.DataFrame, target:pd.DataFrame,log_file: str = "../logs/hyperparameter_tunning.log"):
         "Initializes the dataset"
@@ -18,8 +19,15 @@ class HyperparameterTunning:
         self.y = target
         self.logger = make_logger("HyperparameterTunning",log_file)
 
+        # Resolve the model_folder
+        script_dir = Path(__file__).resolve().parent
+        project_root = script_dir.parent
+        self.model_folder = project_root / "models"
+
+
+
     def create_objective(self, n_splits:int, parameter_search_space:Dict[str,Any], scoring_func) -> float:
-    """Wrapper function for objective to pass the required datasets and other parameters for hyperparameter tuning."""
+        """Wrapper function for objective to pass the required datasets and other parameters for hyperparameter tuning."""
         self.logger.info(f"n_splits: {n_splits}")
         self.logger.info(f"parameter_search_space: {parameter_search_space}")
         self.logger.info(f"scoring_func: {scoring_func.__name__}")
@@ -67,20 +75,18 @@ class HyperparameterTunning:
             trial.set_user_attr("n_estimators", int(np.mean(kfold_best_n_estimator)))
             return np.mean(kfold_scores)
 
-    return tune_hyperparameters_objective
+        return tune_hyperparameters_objective
 
 
     def extract_best_parameters(self, 
              parameter_search_space: Dict[str, Any], 
              n_trials: int = 20,
-             scoring_func):
+             scoring_func=None):
         "Function for performing hyperparameter tunning and extracting the best hyperparameters"
 
         # Create the objective function
         self.logger.info(f"Creating Objective Function")
         custom_objective = self.create_objective(
-            X=X, 
-            y=y, 
             n_splits=5, 
             parameter_search_space=parameter_search_space,
             scoring_func= scoring_func
@@ -106,10 +112,14 @@ class HyperparameterTunning:
             "optimal_n_estimators": best_n_estimators,
         }
 
-        results_file = create_timestamped_filename(base_name= "../model/hyperparameters",extension = "json")
-        with open(results_file, "w") as f:
-            json.dump(results, f)
-        self.logger.info("Best Hyperparameters saved to {results_file}")
+        results_file = create_timestamped_filename(base_name= f"{self.model_folder}/hyperparameters",extension = "json")
+        
+        try:
+            with open(results_file, "w") as f:
+                json.dump(results, f)
+        except Exception as e:
+            self.logger.info(f"Unable to save file to {results_file} : {e}")
+        self.logger.info(f"Best Hyperparameters saved to {results_file}")
 
         return results
 

@@ -1,0 +1,9 @@
+2026-07-24 00:54:29,435 - log_generator.ModelTrainingPipeline - INFO - 
+STEP 1: Loading and Initial Data Cleaning
+2026-07-24 00:54:30,022 - log_generator.ModelTrainingPipeline - INFO - [SUCCESS] Data loaded and cleaned successfully : ((4928, 19), (4928,))
+2026-07-24 00:54:30,022 - log_generator.ModelTrainingPipeline - INFO - 
+STEP 2: Feature Engineering
+2026-07-24 00:54:30,070 - log_generator.ModelTrainingPipeline - INFO - [SUCCESS] Preprocessor State saved successfully.
+2026-07-24 00:54:30,070 - log_generator.ModelTrainingPipeline - INFO - Running Hyperparameter tunning pipeline
+2026-07-24 00:54:53,457 - log_generator.ModelTrainingPipeline - INFO - Step 3: Starting model training
+2026-07-24 00:54:53,574 - log_generator.ModelTrainingPipeline - INFO - ML training pipeline completed!

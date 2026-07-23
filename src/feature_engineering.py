@@ -38,7 +38,7 @@ class PreprocessorState:
                 self.logger.exception(f"[ERROR] Failed to save the preprocessor at file_path: {file_path} with Error: {e}")
                 raise
         else:
-            self.logger.exception("[ERROR] Filepath is incorrect: {file_path}")
+            self.logger.exception(f"[ERROR] Filepath is incorrect: {file_path}")
 
     def load(self, file_path: str):
         """Loads the state from a pickle file."""

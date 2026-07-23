@@ -1,0 +1,1 @@
+{"best_parameters": {"objective": "binary:logistic", "eval_metric": "logloss", "scale_pos_weight": 1.7, "learning_rate": 0.05414139537109169, "max_depth": 4, "min_child_weight": 7, "subsample": 0.8254326442853749, "colsample_bytree": 0.7085780281610619, "reg_alpha": 0.0010545887776667292, "reg_lambda": 2.8588848294302536}, "optimal_n_estimators": 128}
