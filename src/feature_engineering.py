@@ -89,8 +89,8 @@ class FeatureExtraction:
             # Extract categorical columns
             cat_cols = self.extract_column_types(dataset, col_type="object")
             
-            self.logger.info(f"🔢 Numerical cols: {num_cols}")
-            self.logger.info(f"🏷️  Categorical cols: {cat_cols}")
+            self.logger.info(f"Numerical cols: {num_cols}")
+            self.logger.info(f"Categorical cols: {cat_cols}")
             
             # Build Transformer
             transformers = []
@@ -145,8 +145,8 @@ class FeatureExtraction:
             # Extract categorical columns
             cat_cols = self.extract_column_types(dataset, col_type="object")
             
-            self.logger.info(f"🔢 Numerical cols: {num_cols}")
-            self.logger.info(f"🏷️  Categorical cols: {cat_cols}")
+            self.logger.info(f"Numerical cols: {num_cols}")
+            self.logger.info(f"Categorical cols: {cat_cols}")
 
 
             # Apply Transformation

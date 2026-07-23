@@ -35,6 +35,8 @@ class LoadDataset:
             X = dataset.drop(columns=[target_col]) if target_col else dataset.copy()
             y = dataset[target_col].values if target_col else None
 
+            y = np.where(y == 'No', 0, 1)
+
             # Rename Column Values
             X["PaymentMethod"] = X["PaymentMethod"].replace(
                 {
