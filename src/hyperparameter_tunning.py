@@ -25,7 +25,6 @@ class HyperparameterTunning:
         if logger:
             self.logger = logger
         else:
-
             log_file = f"{project_root}/logs/hyperparameter_tunning.log"
             self.logger = make_logger("HyperparameterTunning", log_file)
 
