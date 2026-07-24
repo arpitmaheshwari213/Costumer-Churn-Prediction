@@ -1,0 +1,16 @@
+dataset_dir: "/data/"
+train_data_file: "train_dataset.xlsx"
+test_data_file: "test_dataset.xlsx"
+target_column: "Churn"
+
+optional_training_params:
+  output_model_dir: "./models"
+  output_artifact_dir: "./artifacts"
+  output_logs_dir: "./logs"
+# Hyperpameter Tuning flag
+hyper_tuning_flag: false
+
+
+
+
+

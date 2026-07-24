@@ -93,13 +93,14 @@ class HyperparameterTunning:
         parameter_search_space: Dict[str, Any],
         n_trials: int = 20,
         scoring_func: Callable = None,
+        optional_tuning_params={},
     ) -> Dict[str, Any]:
         "Function for performing hyperparameter tunning and extracting the best hyperparameters"
 
         # Create the objective function
         self.logger.info("Creating Objective Function")
         custom_objective = self.create_objective(
-            n_splits=5,
+            n_splits=optional_tuning_params.get("n_cv_splits", 5),
             parameter_search_space=parameter_search_space,
             scoring_func=scoring_func,
         )

@@ -1,0 +1,66 @@
+2026-07-24 07:45:03,584 - ModelTrainingPipeline - INFO - 
+STEP 1: Loading and Initial Data Cleaning
+2026-07-24 07:45:03,584 - ModelTrainingPipeline - INFO - Loading Dataset
+2026-07-24 07:45:04,120 - ModelTrainingPipeline - INFO - [LOG] Successfully loaded 4928 rows from /Users/arpit/Desktop/Costumer-Churn-Prediction/data/train_dataset.xlsx
+2026-07-24 07:45:04,121 - ModelTrainingPipeline - INFO - Cleaning Dataset
+2026-07-24 07:45:04,125 - ModelTrainingPipeline - INFO - Cleaning Dataset Complete. Shape of features and target (4928, 19) & 4928
+2026-07-24 07:45:04,125 - ModelTrainingPipeline - INFO - [SUCCESS] Data loaded and cleaned successfully : ((4928, 19), (4928,))
+2026-07-24 07:45:04,125 - ModelTrainingPipeline - INFO - 
+STEP 2: Feature Engineering
+2026-07-24 07:45:04,125 - ModelTrainingPipeline - INFO - Fit & Transform Started
+2026-07-24 07:45:04,125 - ModelTrainingPipeline - INFO - Loaded Dataset Shape (4928, 19)
+2026-07-24 07:45:04,126 - ModelTrainingPipeline - INFO - Columns of type number: ['SENIORCITIZEN', 'TENURE', 'MONTHLYCHARGES', 'TOTALCHARGES']
+2026-07-24 07:45:04,127 - ModelTrainingPipeline - INFO - Columns of type object: ['GENDER', 'PARTNER', 'DEPENDENTS', 'PHONESERVICE', 'MULTIPLELINES', 'INTERNETSERVICE', 'ONLINESECURITY', 'ONLINEBACKUP', 'DEVICEPROTECTION', 'TECHSUPPORT', 'STREAMINGTV', 'STREAMINGMOVIES', 'CONTRACT', 'PAPERLESSBILLING', 'PAYMENTMETHOD']
+2026-07-24 07:45:04,127 - ModelTrainingPipeline - INFO - Numerical cols: Index(['SENIORCITIZEN', 'TENURE', 'MONTHLYCHARGES', 'TOTALCHARGES'], dtype='object')
+2026-07-24 07:45:04,127 - ModelTrainingPipeline - INFO - Categorical cols: Index(['GENDER', 'PARTNER', 'DEPENDENTS', 'PHONESERVICE', 'MULTIPLELINES',
+       'INTERNETSERVICE', 'ONLINESECURITY', 'ONLINEBACKUP', 'DEVICEPROTECTION',
+       'TECHSUPPORT', 'STREAMINGTV', 'STREAMINGMOVIES', 'CONTRACT',
+       'PAPERLESSBILLING', 'PAYMENTMETHOD'],
+      dtype='object')
+2026-07-24 07:45:04,146 - ModelTrainingPipeline - INFO - Transformed dataframe : (4928, 30)
+2026-07-24 07:45:04,146 - ModelTrainingPipeline - INFO - Feature Names ['NUM__SENIORCITIZEN', 'NUM__TENURE', 'NUM__MONTHLYCHARGES', 'NUM__TOTALCHARGES', 'CAT__GENDER_MALE', 'CAT__PARTNER_YES', 'CAT__DEPENDENTS_YES', 'CAT__PHONESERVICE_YES', 'CAT__MULTIPLELINES_NO_PHONE_SERVICE', 'CAT__MULTIPLELINES_YES', 'CAT__INTERNETSERVICE_FIBER_OPTIC', 'CAT__INTERNETSERVICE_NO', 'CAT__ONLINESECURITY_NO_INTERNET_SERVICE', 'CAT__ONLINESECURITY_YES', 'CAT__ONLINEBACKUP_NO_INTERNET_SERVICE', 'CAT__ONLINEBACKUP_YES', 'CAT__DEVICEPROTECTION_NO_INTERNET_SERVICE', 'CAT__DEVICEPROTECTION_YES', 'CAT__TECHSUPPORT_NO_INTERNET_SERVICE', 'CAT__TECHSUPPORT_YES', 'CAT__STREAMINGTV_NO_INTERNET_SERVICE', 'CAT__STREAMINGTV_YES', 'CAT__STREAMINGMOVIES_NO_INTERNET_SERVICE', 'CAT__STREAMINGMOVIES_YES', 'CAT__CONTRACT_ONE_YEAR', 'CAT__CONTRACT_TWO_YEAR', 'CAT__PAPERLESSBILLING_YES', 'CAT__PAYMENTMETHOD_CREDIT_CARD', 'CAT__PAYMENTMETHOD_ELECTRONIC_CHECK', 'CAT__PAYMENTMETHOD_MAILED_CHECK']
+2026-07-24 07:45:04,146 - ModelTrainingPipeline - INFO - Shape of processed dataframe : (4928, 30)
+2026-07-24 07:45:04,146 - ModelTrainingPipeline - INFO - Saving Preprocessor
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - [LOG] Preprocessor saved successfully at file_path: /Users/arpit/Desktop/Costumer-Churn-Prediction/models/preprocessor_20260724_064503.pkl
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - [SUCCESS] Preprocessor State saved successfully.
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - WARNING - 
+Using Existing Hyperparameters/Defaults Mode
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - [SUCCESS] Loaded hyperparameters successfully from disk.
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - Training Hyperparameters: {'objective': 'binary:logistic', 'eval_metric': 'logloss', 'scale_pos_weight': 1.7, 'learning_rate': 0.04421713465368363, 'max_depth': 4, 'min_child_weight': 8, 'subsample': 0.9803322710419345, 'colsample_bytree': 0.8020828045471105, 'reg_alpha': 2.868423734680449, 'reg_lambda': 1.2578096059411186}
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - Training n_estimators: 151
+2026-07-24 07:45:04,147 - ModelTrainingPipeline - INFO - 
+Step 3: Starting model training
+2026-07-24 07:45:04,300 - ModelTrainingPipeline - INFO - ML training pipeline completed!
+2026-07-24 07:45:04,300 - ModelTrainingPipeline - INFO - 
+Evaluating Model Performance...
+2026-07-24 07:45:04,311 - ModelTrainingPipeline - INFO - [SUCCESS] Evaluation complete.
+2026-07-24 07:45:04,311 - ModelTrainingPipeline - INFO - {'F1_score_macro': 0.7733192298183971, 'AUC_ROC_score': 0.8828621698141239, 'Classification_Report': {'0': {'precision': 0.8967930029154519, 'recall': 0.8473829201101928, 'f1-score': 0.8713881019830029, 'support': 3630.0}, '1': {'precision': 0.630173564753004, 'recall': 0.7272727272727273, 'f1-score': 0.6752503576537912, 'support': 1298.0}, 'accuracy': 0.8157467532467533, 'macro avg': {'precision': 0.763483283834228, 'recall': 0.78732782369146, 'f1-score': 0.7733192298183971, 'support': 4928.0}, 'weighted avg': {'precision': 0.8265673473280215, 'recall': 0.8157467532467533, 'f1-score': 0.8197268211105766, 'support': 4928.0}}}
+2026-07-24 07:45:04,311 - ModelTrainingPipeline - INFO - [SUCCESS] Train Performance metrics saved to /Users/arpit/Desktop/Costumer-Churn-Prediction/artifacts/train_performance_metrics_20260724_064503.json
+2026-07-24 07:45:04,311 - ModelTrainingPipeline - INFO - 
+ Generating Feature Importance
+2026-07-24 07:45:04,312 - ModelTrainingPipeline - INFO - [SUCCESS] Feature importance saved to /Users/arpit/Desktop/Costumer-Churn-Prediction/artifacts/feature_importances_20260724_064503.json
+2026-07-24 07:45:04,312 - ModelTrainingPipeline - INFO - 
+STEP 1: Loading and Initial Data Cleaning
+2026-07-24 07:45:04,312 - ModelTrainingPipeline - INFO - Loading Dataset
+2026-07-24 07:45:04,442 - ModelTrainingPipeline - INFO - [LOG] Successfully loaded 1410 rows from /Users/arpit/Desktop/Costumer-Churn-Prediction/data/test_dataset.xlsx
+2026-07-24 07:45:04,442 - ModelTrainingPipeline - INFO - Cleaning Dataset
+2026-07-24 07:45:04,442 - ModelTrainingPipeline - INFO - Cleaning Dataset Complete. Shape of features and target (1410, 19) & 1410
+2026-07-24 07:45:04,442 - ModelTrainingPipeline - INFO - [SUCCESS] Data loaded and cleaned successfully : ((1410, 19), (1410,))
+2026-07-24 07:45:04,442 - ModelTrainingPipeline - INFO - Transform Started
+2026-07-24 07:45:04,443 - ModelTrainingPipeline - INFO - Loaded Dataset Shape: (1410, 19)
+2026-07-24 07:45:04,443 - ModelTrainingPipeline - INFO - Columns of type number: ['SENIORCITIZEN', 'TENURE', 'MONTHLYCHARGES', 'TOTALCHARGES']
+2026-07-24 07:45:04,443 - ModelTrainingPipeline - INFO - Columns of type object: ['GENDER', 'PARTNER', 'DEPENDENTS', 'PHONESERVICE', 'MULTIPLELINES', 'INTERNETSERVICE', 'ONLINESECURITY', 'ONLINEBACKUP', 'DEVICEPROTECTION', 'TECHSUPPORT', 'STREAMINGTV', 'STREAMINGMOVIES', 'CONTRACT', 'PAPERLESSBILLING', 'PAYMENTMETHOD']
+2026-07-24 07:45:04,443 - ModelTrainingPipeline - INFO - Numerical cols: Index(['SENIORCITIZEN', 'TENURE', 'MONTHLYCHARGES', 'TOTALCHARGES'], dtype='object')
+2026-07-24 07:45:04,443 - ModelTrainingPipeline - INFO - Categorical cols: Index(['GENDER', 'PARTNER', 'DEPENDENTS', 'PHONESERVICE', 'MULTIPLELINES',
+       'INTERNETSERVICE', 'ONLINESECURITY', 'ONLINEBACKUP', 'DEVICEPROTECTION',
+       'TECHSUPPORT', 'STREAMINGTV', 'STREAMINGMOVIES', 'CONTRACT',
+       'PAPERLESSBILLING', 'PAYMENTMETHOD'],
+      dtype='object')
+2026-07-24 07:45:04,448 - ModelTrainingPipeline - INFO - Feature Names ['NUM__SENIORCITIZEN', 'NUM__TENURE', 'NUM__MONTHLYCHARGES', 'NUM__TOTALCHARGES', 'CAT__GENDER_MALE', 'CAT__PARTNER_YES', 'CAT__DEPENDENTS_YES', 'CAT__PHONESERVICE_YES', 'CAT__MULTIPLELINES_NO_PHONE_SERVICE', 'CAT__MULTIPLELINES_YES', 'CAT__INTERNETSERVICE_FIBER_OPTIC', 'CAT__INTERNETSERVICE_NO', 'CAT__ONLINESECURITY_NO_INTERNET_SERVICE', 'CAT__ONLINESECURITY_YES', 'CAT__ONLINEBACKUP_NO_INTERNET_SERVICE', 'CAT__ONLINEBACKUP_YES', 'CAT__DEVICEPROTECTION_NO_INTERNET_SERVICE', 'CAT__DEVICEPROTECTION_YES', 'CAT__TECHSUPPORT_NO_INTERNET_SERVICE', 'CAT__TECHSUPPORT_YES', 'CAT__STREAMINGTV_NO_INTERNET_SERVICE', 'CAT__STREAMINGTV_YES', 'CAT__STREAMINGMOVIES_NO_INTERNET_SERVICE', 'CAT__STREAMINGMOVIES_YES', 'CAT__CONTRACT_ONE_YEAR', 'CAT__CONTRACT_TWO_YEAR', 'CAT__PAPERLESSBILLING_YES', 'CAT__PAYMENTMETHOD_CREDIT_CARD', 'CAT__PAYMENTMETHOD_ELECTRONIC_CHECK', 'CAT__PAYMENTMETHOD_MAILED_CHECK']
+2026-07-24 07:45:04,448 - ModelTrainingPipeline - INFO - Shape of processed dataframe (1410, 30)
+2026-07-24 07:45:04,448 - ModelTrainingPipeline - INFO - 
+Evaluating Model Performance...
+2026-07-24 07:45:04,486 - ModelTrainingPipeline - INFO - [SUCCESS] Evaluation complete.
+2026-07-24 07:45:04,486 - ModelTrainingPipeline - INFO - {'F1_score_macro': 0.7346191474493361, 'AUC_ROC_score': 0.8407161146551344, 'Classification_Report': {'0': {'precision': 0.8732251521298174, 'recall': 0.8286814244465832, 'f1-score': 0.8503703703703703, 'support': 1039.0}, '1': {'precision': 0.5801886792452831, 'recall': 0.6630727762803235, 'f1-score': 0.6188679245283019, 'support': 371.0}, 'accuracy': 0.7851063829787234, 'macro avg': {'precision': 0.7267069156875503, 'recall': 0.7458771003634533, 'f1-score': 0.7346191474493361, 'support': 1410.0}, 'weighted avg': {'precision': 0.7961212291226101, 'recall': 0.7851063829787234, 'f1-score': 0.7894573154714998, 'support': 1410.0}}}
+2026-07-24 07:45:04,486 - ModelTrainingPipeline - INFO - [SUCCESS] Performance metrics saved to /Users/arpit/Desktop/Costumer-Churn-Prediction/artifacts/test_performance_metrics_20260724_064503.json
+2026-07-24 07:45:04,907 - ModelTrainingPipeline - INFO - [SUCCESS] SHAP Summary Plot saved to /Users/arpit/Desktop/Costumer-Churn-Prediction/artifacts/shap_summary_20260724_064503.png
