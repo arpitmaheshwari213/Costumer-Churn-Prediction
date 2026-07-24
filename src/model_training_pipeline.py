@@ -1,10 +1,8 @@
 import pandas as pd
-import numpy as np
-import pickle
 import json
 import os
 from pathlib import Path
-from datetime import datetime,timezone
+from datetime import datetime, timezone
 from xgboost import XGBClassifier
 from data_loader import LoadDataset
 from feature_engineering import FeatureExtraction
@@ -17,9 +15,12 @@ from typing import Dict, Any
 import optuna
 
 METRIC_REGISTRY = {
-    "macro_f1": lambda y_true, y_pred, y_prob: f1_score(y_true, y_pred, average='macro'),
-    "pr_auc": lambda y_true, y_pred, y_prob: average_precision_score(y_true, y_prob)
+    "macro_f1": lambda y_true, y_pred, y_prob: f1_score(
+        y_true, y_pred, average="macro"
+    ),
+    "pr_auc": lambda y_true, y_pred, y_prob: average_precision_score(y_true, y_prob),
 }
+
 
 class ModelTrainingPipeline:
     """
@@ -34,7 +35,7 @@ class ModelTrainingPipeline:
         # Resolve the root_folder
         script_dir = Path(__file__).resolve().parent
         self.project_root = script_dir.parent
-        
+
         log_file = create_timestamped_filename(
             base_name=f"{self.project_root}/logs/model_training",
             extension="log",
@@ -42,24 +43,22 @@ class ModelTrainingPipeline:
         )
         # Initialize the logger at the top level
         self.logger = make_logger("ModelTrainingPipeline", log_file)
-        
-        self.model_folder = self.project_root / "models"
 
+        self.model_folder = self.project_root / "models"
 
     def load_and_clean_data(self, file_name: str) -> pd.DataFrame:
         """Handles Data Loading and Initial Cleaning."""
         self.logger.info("\nSTEP 1: Loading and Initial Data Cleaning")
 
-        loader = LoadDataset(data_folder=self.data_folder,logger=self.logger)
+        loader = LoadDataset(data_folder=self.data_folder, logger=self.logger)
         df = loader.load_excel(file_name)
 
         X, y = loader.clean_data(df, self.target_col)
 
-        
         self.logger.info(
             f"[SUCCESS] Data loaded and cleaned successfully : {X.shape, y.shape}"
         )
-        return X,y
+        return X, y
 
     def perform_feature_engineering(self, raw_data_df: pd.DataFrame):
         """Feature Engineering with fit and transform. Also, saves the state."""
@@ -69,7 +68,9 @@ class ModelTrainingPipeline:
         X_processed, preprocessor_state_obj = fe.fit_transform(raw_data_df)
 
         # Save the fitted model
-        preprocessor_state_obj.save(f"{self.model_folder}/preprocessor_{self.timestamp}.pkl")
+        preprocessor_state_obj.save(
+            f"{self.model_folder}/preprocessor_{self.timestamp}.pkl"
+        )
         self.logger.info("[SUCCESS] Preprocessor State saved successfully.")
         return X_processed, preprocessor_state_obj
 
@@ -89,13 +90,11 @@ class ModelTrainingPipeline:
             return
 
         # 1. Load Data
-        X,y = self.load_and_clean_data(file_name)
+        X, y = self.load_and_clean_data(file_name)
         # 2. Extract Features
-        X_processed, preprocessor_state_obj = self.perform_feature_engineering(
-            X
-        )
+        X_processed, preprocessor_state_obj = self.perform_feature_engineering(X)
         y = pd.DataFrame(y)
-        #3. Hyperparameters Tuning ---
+        # 3. Hyperparameters Tuning ---
         best_params: dict
         best_n_estimators: int
 
@@ -104,14 +103,13 @@ class ModelTrainingPipeline:
 
             # Instantiate and use the Tuning Object
             tuner = HyperparameterTunning(
-                features=X_processed,
-                target=y,
-                logger = self.logger
+                features=X_processed, target=y, logger=self.logger
             )
 
             try:
                 tuner_results = tuner.extract_best_parameters(
-                    parameter_search_space=parameter_search_space,scoring_func=METRIC_REGISTRY["macro_f1"]
+                    parameter_search_space=parameter_search_space,
+                    scoring_func=METRIC_REGISTRY["macro_f1"],
                 )
                 best_params = tuner_results["best_parameters"]
                 best_n_estimators = tuner_results["optimal_n_estimators"]
@@ -121,9 +119,7 @@ class ModelTrainingPipeline:
 
         else:
             # Logic for using existing parameters (Load from file or use defaults)
-            self.logger.warning(
-                "\nUsing Existing Hyperparameters/Defaults Mode"
-            )
+            self.logger.warning("\nUsing Existing Hyperparameters/Defaults Mode")
             best_params, best_n_estimators = self.load_or_default_params()
 
         # 4. Train the final model and save it
@@ -133,7 +129,9 @@ class ModelTrainingPipeline:
             xgb_model.fit(X_processed, y)
 
             # Save the model using the utility class
-            save_model(xgb_model, f"{self.model_folder}/xgboost_model_{self.timestamp}.pkl") 
+            save_model(
+                xgb_model, f"{self.model_folder}/xgboost_model_{self.timestamp}.pkl"
+            )
             self.logger.info("ML training pipeline completed!")
 
         except Exception as e:
@@ -144,13 +142,16 @@ class ModelTrainingPipeline:
         try:
             try:
                 all_files = [
-                    f for f in self.model_folder.iterdir() 
-                    if f.name.startswith("hyperparameters_") and f.name.endswith(".json")
+                    f
+                    for f in self.model_folder.iterdir()
+                    if f.name.startswith("hyperparameters_")
+                    and f.name.endswith(".json")
                 ]
             except Exception as e:
-                self.logger.error(f"[ERROR] Failed to read directory {self.model_folder}: {e}")
+                self.logger.error(
+                    f"[ERROR] Failed to read directory {self.model_folder}: {e}"
+                )
                 return self.load_default_params()
-            
 
             # Check if any files were found
             if not all_files:
@@ -159,7 +160,9 @@ class ModelTrainingPipeline:
             try:
                 hyperparameters_filename = max(all_files, key=os.path.getmtime)
             except Exception as e:
-                self.logger.error(f"[ERROR] Could not determine the latest file by timestamp: {e}")
+                self.logger.error(
+                    f"[ERROR] Could not determine the latest file by timestamp: {e}"
+                )
                 return self.load_default_params()
 
             # Attempt to load latest parameters
@@ -168,22 +171,31 @@ class ModelTrainingPipeline:
                 self.logger.info(
                     "[SUCCESS] Loaded hyperparameters successfully from disk."
                 )
-                return (loaded_data["best_parameters"], loaded_data["optimal_n_estimators"])
-        except FileNotFoundError:
-            self.logger.error(f"[ERROR] Failed to process parameters in {hyperparameters_filename}: {e}")
+                return (
+                    loaded_data["best_parameters"],
+                    loaded_data["optimal_n_estimators"],
+                )
+        except FileNotFoundError as e:
+            self.logger.error(
+                f"[ERROR] Failed to process parameters in {hyperparameters_filename}: {e}"
+            )
             return self.load_default_params()
-    
+
     def load_default_params(self):
         """Helper function to return default hyperparameters."""
         default_params = {
-            "learning_rate": 0.1, "max_depth": 6, "min_child_weight": 5, 
-            "subsample": 0.8, "colsample_bytree": 0.8, 
-            "reg_alpha": 1.0, "reg_lambda": 2.0, "objective": "binary:logistic",
+            "learning_rate": 0.1,
+            "max_depth": 6,
+            "min_child_weight": 5,
+            "subsample": 0.8,
+            "colsample_bytree": 0.8,
+            "reg_alpha": 1.0,
+            "reg_lambda": 2.0,
+            "objective": "binary:logistic",
             "eval_metric": "logloss",
         }
         self.logger.warning("[FALLBACK] Using default hyperparameter values.")
         return (default_params, 300)
-
 
 
 def main():
@@ -191,7 +203,7 @@ def main():
     Main function to run the pipeline
     """
     print("===== Machine Learning Pipeline =====")
-    
+
     # CONFIGURATION SECTION
     DATA_FOLDER = "/data/"
     TRAINING_FILE = "train_dataset.xlsx"
@@ -199,9 +211,11 @@ def main():
 
     # Define required parameters for tuning/defaulting
     parameter_search_space = {
-        "objective": optuna.distributions.CategoricalDistribution(["binary:logistic"]), 
+        "objective": optuna.distributions.CategoricalDistribution(["binary:logistic"]),
         "eval_metric": optuna.distributions.CategoricalDistribution(["logloss"]),
-        "scale_pos_weight":optuna.distributions.CategoricalDistribution([1.7]), # sqrt(negatives/positives)
+        "scale_pos_weight": optuna.distributions.CategoricalDistribution(
+            [1.7]
+        ),  # sqrt(negatives/positives)
         "learning_rate": optuna.distributions.FloatDistribution(0.01, 0.3, log=True),
         "max_depth": optuna.distributions.IntDistribution(4, 10),
         "min_child_weight": optuna.distributions.IntDistribution(3, 8),
@@ -211,18 +225,20 @@ def main():
         "reg_lambda": optuna.distributions.FloatDistribution(1, 3.0, log=True),
     }
 
-
-    orchestrator = ModelTrainingPipeline(data_folder=DATA_FOLDER, target_col=TARGET_COLUMN)
+    orchestrator = ModelTrainingPipeline(
+        data_folder=DATA_FOLDER, target_col=TARGET_COLUMN
+    )
 
     try:
         # run_workflow handles loading data, running the tuner, and training the model.
         orchestrator.run_workflow(
-            file_name=TRAINING_FILE, 
-            run_tuning=True,
-            parameter_search_space=parameter_search_space
+            file_name=TRAINING_FILE,
+            run_tuning=False,
+            parameter_search_space=parameter_search_space,
         )
     except Exception as e:
         print(f"[Error] ML Workflow Failed\n{e}")
+
 
 if __name__ == "__main__":
     main()
