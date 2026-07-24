@@ -2,3 +2,19 @@
 2026-07-24 00:54:30,007 - log_generator.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
 2026-07-24 00:54:30,007 - log_generator.DataLoader - INFO - Cleaning Dataset
 2026-07-24 00:54:30,022 - log_generator.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928
+2026-07-24 01:03:55,930 - log_generator.DataLoader - INFO - Loading Dataset
+2026-07-24 01:03:56,502 - log_generator.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-24 01:03:56,502 - log_generator.DataLoader - INFO - Cleaning Dataset
+2026-07-24 01:03:56,516 - log_generator.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928
+2026-07-24 01:09:32,174 - log_generator.DataLoader - INFO - Loading Dataset
+2026-07-24 01:09:32,742 - log_generator.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-24 01:09:32,742 - log_generator.DataLoader - INFO - Cleaning Dataset
+2026-07-24 01:09:32,759 - log_generator.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928
+2026-07-24 01:12:56,111 - log_generator.DataLoader - INFO - Loading Dataset
+2026-07-24 01:12:56,700 - log_generator.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-24 01:12:56,700 - log_generator.DataLoader - INFO - Cleaning Dataset
+2026-07-24 01:12:56,715 - log_generator.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928
+2026-07-24 01:14:31,843 - log_generator.DataLoader - INFO - Loading Dataset
+2026-07-24 01:14:32,429 - log_generator.DataLoader - INFO - [LOG] Successfully loaded 4928 rows from ../data/train_dataset.xlsx
+2026-07-24 01:14:32,429 - log_generator.DataLoader - INFO - Cleaning Dataset
+2026-07-24 01:14:32,442 - log_generator.DataLoader - INFO - Cleaning Dataset Complete. Shape of features (4928, 19) & Shape of target Variable 4928

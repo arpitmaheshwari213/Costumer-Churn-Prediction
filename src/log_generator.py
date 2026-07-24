@@ -3,8 +3,8 @@ import logging
 
 
 def make_logger(name: str, log_file: str = None) -> logging.Logger:
-    logger = logging.getLogger(f"{__name__}.{name}")
-
+    # logger = logging.getLogger(f"{__name__}.{name}")
+    logger = logging.getLogger(name)
     if not logger.handlers:
         level = logging.INFO
 

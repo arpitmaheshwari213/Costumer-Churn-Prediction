@@ -3,8 +3,8 @@ import numpy as np
 import pickle
 import json
 import os
-from glob import glob
-from datetime import datetime
+from pathlib import Path
+from datetime import datetime,timezone
 from xgboost import XGBClassifier
 from data_loader import LoadDataset
 from feature_engineering import FeatureExtraction
@@ -29,21 +29,28 @@ class ModelTrainingPipeline:
     def __init__(self, data_folder: str, target_col: str):
         self.data_folder = data_folder
         self.target_col = target_col
-        now = datetime.now()
+        now = datetime.now(timezone.utc)
         self.timestamp = now.strftime("%Y%m%d_%H%M%S")
+        # Resolve the root_folder
+        script_dir = Path(__file__).resolve().parent
+        self.project_root = script_dir.parent
+        
         log_file = create_timestamped_filename(
-            base_name="../logs/model_training",
+            base_name=f"{self.project_root}/logs/model_training",
             extension="log",
             timestamp=self.timestamp,
         )
         # Initialize the logger at the top level
         self.logger = make_logger("ModelTrainingPipeline", log_file)
+        
+        self.model_folder = self.project_root / "models"
+
 
     def load_and_clean_data(self, file_name: str) -> pd.DataFrame:
         """Handles Data Loading and Initial Cleaning."""
         self.logger.info("\nSTEP 1: Loading and Initial Data Cleaning")
 
-        loader = LoadDataset(data_folder=self.data_folder)
+        loader = LoadDataset(data_folder=self.data_folder,logger=self.logger)
         df = loader.load_excel(file_name)
 
         X, y = loader.clean_data(df, self.target_col)
@@ -58,11 +65,11 @@ class ModelTrainingPipeline:
         """Feature Engineering with fit and transform. Also, saves the state."""
         self.logger.info("\nSTEP 2: Feature Engineering")
 
-        fe = FeatureExtraction()
+        fe = FeatureExtraction(logger=self.logger)
         X_processed, preprocessor_state_obj = fe.fit_transform(raw_data_df)
 
         # Save the fitted model
-        preprocessor_state_obj.save(f"../models/preprocessor_{self.timestamp}.pkl")
+        preprocessor_state_obj.save(f"{self.model_folder}/preprocessor_{self.timestamp}.pkl")
         self.logger.info("[SUCCESS] Preprocessor State saved successfully.")
         return X_processed, preprocessor_state_obj
 
@@ -98,7 +105,8 @@ class ModelTrainingPipeline:
             # Instantiate and use the Tuning Object
             tuner = HyperparameterTunning(
                 features=X_processed,
-                target=y
+                target=y,
+                logger = self.logger
             )
 
             try:
@@ -119,13 +127,13 @@ class ModelTrainingPipeline:
             best_params, best_n_estimators = self.load_or_default_params()
 
         # 4. Train the final model and save it
-        self.logger.info("Step 3: Starting model training")
+        self.logger.info("\nStep 3: Starting model training")
         try:
-            xgb_model = XGBClassifier(**best_params, n_estimators=best_n_estimators, use_label_encoder=False)
+            xgb_model = XGBClassifier(**best_params, n_estimators=best_n_estimators)
             xgb_model.fit(X_processed, y)
 
             # Save the model using the utility class
-            save_model(xgb_model, f"../models/xgboost_model_{self.timestamp}.pkl") 
+            save_model(xgb_model, f"{self.model_folder}/xgboost_model_{self.timestamp}.pkl") 
             self.logger.info("ML training pipeline completed!")
 
         except Exception as e:
@@ -134,13 +142,15 @@ class ModelTrainingPipeline:
     def load_or_default_params(self):
         """Handles loading parameters from file or using defaults."""
         try:
-            # Find latest hyperparameters fiel fro model folder
-            search_path = os.path.join("../models/", "hyperparameters_*.json")
-            all_files = []
             try:
-                all_files = glob.glob(search_path)
+                all_files = [
+                    f for f in self.model_folder.iterdir() 
+                    if f.name.startswith("hyperparameters_") and f.name.endswith(".json")
+                ]
             except Exception as e:
-                self.logger.error(f"[ERROR] Failed to search directory {"../models/"}: {e}")
+                self.logger.error(f"[ERROR] Failed to read directory {self.model_folder}: {e}")
+                return self.load_default_params()
+            
 
             # Check if any files were found
             if not all_files:
@@ -158,7 +168,7 @@ class ModelTrainingPipeline:
                 self.logger.info(
                     "[SUCCESS] Loaded hyperparameters successfully from disk."
                 )
-                return (loaded_data["best_params"], loaded_data["optimal_n_estimators"])
+                return (loaded_data["best_parameters"], loaded_data["optimal_n_estimators"])
         except FileNotFoundError:
             self.logger.error(f"[ERROR] Failed to process parameters in {hyperparameters_filename}: {e}")
             return self.load_default_params()
@@ -183,7 +193,7 @@ def main():
     print("===== Machine Learning Pipeline =====")
     
     # CONFIGURATION SECTION
-    DATA_FOLDER = "../data/"
+    DATA_FOLDER = "/data/"
     TRAINING_FILE = "train_dataset.xlsx"
     TARGET_COLUMN = "Churn"
 

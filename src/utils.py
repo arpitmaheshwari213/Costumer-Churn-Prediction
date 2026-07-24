@@ -1,8 +1,8 @@
-import datetime
+from datetime import datetime,timezone
 
 def create_timestamped_filename(base_name, extension = "txt", timestamp = ""):
     # Get the current date and time object
-    now = datetime.datetime.now()
+    now = datetime.now(timezone.utc)
 
     # Format the datetime object into a clean string
     if (timestamp==""):

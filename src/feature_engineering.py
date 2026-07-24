@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Callable
 
 import pandas as pd
 import numpy as np
@@ -11,6 +11,7 @@ import pickle
 from dataclasses import dataclass
 import logging
 from log_generator import make_logger
+
 
 @dataclass
 class PreprocessorState:
@@ -32,7 +33,7 @@ class PreprocessorState:
                 with open(file_path, 'wb') as f:
                     pickle.dump(self, f)
                 
-                self.logger.info("[LOG] Preprocessor saved successfully at file_path: {file_path}")
+                self.logger.info(f"[LOG] Preprocessor saved successfully at file_path: {file_path}")
                 return True
             except Exception as e:
                 self.logger.exception(f"[ERROR] Failed to save the preprocessor at file_path: {file_path} with Error: {e}")
@@ -61,11 +62,18 @@ class PreprocessorState:
 
 class FeatureExtraction:
     """Class for extracting the features from the data. This includes scaling, null value imputer and categorical encoding"""
-    def __init__(self, preprocessor_state_obj = None, log_file: str = "../logs/feature_extraction.log"):
+    def __init__(self, preprocessor_state_obj = None, logger: Callable = None):
         """Initializes the data folder
         """
         self.preprocessor_state_obj = preprocessor_state_obj
-        self.logger = make_logger("FeatureExtraction",log_file)
+        # Resolve root folder
+        script_dir = Path(__file__).resolve().parent
+        project_root = script_dir.parent
+        if(logger):
+            self.logger = logger
+        else:
+            log_file = f"{project_root}/logs/feature_extraction.log"
+            self.logger = make_logger("FeatureExtraction", log_file)
 
     def extract_column_types(self,dataset:pd.DataFrame,col_type:str):
         col_list = dataset.select_dtypes(include=[col_type]).columns
@@ -133,7 +141,7 @@ class FeatureExtraction:
         return X_processed, preprocessor_state_obj
         
 
-    def transform(self,dataset:pd.DataFrame, target_col: str = None)->pd.DataFrame:
+    def transform(self,dataset:pd.DataFrame)->pd.DataFrame:
         """Function to fit the feature engineering preprocessor on train set"""
         self.logger.info(f"Transform Started")
         self.logger.info(f"Loaded Dataset Shape: {dataset.shape}")

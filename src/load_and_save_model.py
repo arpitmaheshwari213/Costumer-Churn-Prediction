@@ -12,7 +12,6 @@ def save_model(model: Any, file_path: str):
         print(f"[ERROR] Failed to save model at {file_path}: {e}")
         return False
 
-@staticmethod
 def load_model(file_path: str):
     """Loads a saved machine learning model object from pickle."""
     print(f"--- Attempting to load model from {file_path} ---")

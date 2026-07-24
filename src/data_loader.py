@@ -1,17 +1,29 @@
 import logging
 import os
+from pathlib import Path
 import pandas as pd
 import numpy as np
 from log_generator import make_logger
+from typing import Callable
 
 
 class LoadDataset:
     """Class for loading the data"""
 
-    def __init__(self, data_folder: str, log_file: str = "../logs/data_loader.log"):
+    def __init__(self, data_folder: str, logger:Callable = None):
         """Initializes the data folder"""
-        self.data_folder = data_folder
-        self.logger = make_logger("DataLoader", log_file)
+        # Resolve root folder
+        script_dir = Path(__file__).resolve().parent
+        project_root = script_dir.parent
+
+        clean_folder_name = data_folder.lstrip("./")
+        self.data_folder = f"{project_root}/{clean_folder_name}"
+    
+        if(logger):
+            self.logger = logger
+        else:
+            log_file = f"{project_root}/logs/data_loader.log"
+            self.logger = make_logger("DataLoader", log_file)
 
     def load_excel(self, file_name: str) -> pd.DataFrame:
         """Loads the excel file. Currently support .xlsx files with single sheet only."""

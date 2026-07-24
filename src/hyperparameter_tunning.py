@@ -7,26 +7,31 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.metrics import f1_score, average_precision_score
 import json
 import logging
-from typing import Dict, Any
+from typing import Dict, Any, Callable
 from log_generator import make_logger
-from datetime import datetime
 from utils import create_timestamped_filename
 from pathlib import Path 
 class HyperparameterTunning:
-    def __init__(self, features:pd.DataFrame, target:pd.DataFrame,log_file: str = "../logs/hyperparameter_tunning.log"):
+    def __init__(self, features:pd.DataFrame, target:pd.DataFrame,logger: Callable=None):
         "Initializes the dataset"
         self.X = features
         self.y = target
-        self.logger = make_logger("HyperparameterTunning",log_file)
-
-        # Resolve the model_folder
+        # Resolve root folder
         script_dir = Path(__file__).resolve().parent
         project_root = script_dir.parent
+
+        if(logger):
+            self.logger = logger
+        else:
+
+            log_file = f"{project_root}/logs/hyperparameter_tunning.log"
+            self.logger = make_logger("HyperparameterTunning",log_file)
+
         self.model_folder = project_root / "models"
 
 
 
-    def create_objective(self, n_splits:int, parameter_search_space:Dict[str,Any], scoring_func) -> float:
+    def create_objective(self, n_splits:int, parameter_search_space:Dict[str,Any], scoring_func:Callable) -> float:
         """Wrapper function for objective to pass the required datasets and other parameters for hyperparameter tuning."""
         self.logger.info(f"n_splits: {n_splits}")
         self.logger.info(f"parameter_search_space: {parameter_search_space}")
@@ -81,7 +86,7 @@ class HyperparameterTunning:
     def extract_best_parameters(self, 
              parameter_search_space: Dict[str, Any], 
              n_trials: int = 20,
-             scoring_func=None):
+             scoring_func:Callable=None)->Dict[str, Any]:
         "Function for performing hyperparameter tunning and extracting the best hyperparameters"
 
         # Create the objective function
@@ -93,9 +98,23 @@ class HyperparameterTunning:
         )
 
         # Use Optuna for hyperparameter tuning
-        self.logger.info(f"Creating study in optuna") 
+        self.logger.info(f"Creating study in optuna")
+
+        # Completely silence Optuna's own terminal prints
+        optuna_logger = optuna.logging.get_logger("optuna")
+
+        # Remove Optuna's default terminal handler
+        for handler in optuna_logger.handlers[:]:
+            optuna_logger.removeHandler(handler)
+
+        # Send Optuna logs to logger's handlers
+        for handler in self.logger.handlers:
+            optuna_logger.addHandler(handler)
+
+        # Create study
         study = optuna.create_study(direction="maximize")
-        self.logger.info(f"Extracting Best Hyperparameters") 
+        self.logger.info(f"Extracting Best Hyperparameters")
+
         study.optimize(custom_objective, n_trials=n_trials)
 
 
@@ -119,6 +138,7 @@ class HyperparameterTunning:
                 json.dump(results, f)
         except Exception as e:
             self.logger.info(f"Unable to save file to {results_file} : {e}")
+
         self.logger.info(f"Best Hyperparameters saved to {results_file}")
 
         return results
